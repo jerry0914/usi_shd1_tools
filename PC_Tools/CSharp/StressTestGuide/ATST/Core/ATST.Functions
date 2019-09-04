@@ -1,0 +1,1268 @@
+#!/bin/bash
+
+#================================================
+#               Source
+#================================================
+#source /sdcard/ATST/Core/ATST.Variables
+#source /sdcard/ATST/Scripts/VeriableSettings
+#================================================
+#               Veriables
+#================================================
+APIResult=""
+currentTime=""
+ActionDelay=1
+LaunchDelay=4
+PageDelay=2
+#========= Functions: LaunchMobileNetworkSetting =========
+#point_LaunchMobileNetworkSetting="800 570"
+
+#========= Functions: SetMobileNetworkMode  Position =========
+point_SetMobileNetworkMode_2G="700 900"
+point_SetMobileNetworkMode_3G="700 800"
+point_SetMobileNetworkMode_4G="700 600"
+
+path_ATST_Functions_XML="/sdcard/ATST/Xml/ATST.Functions.xml"
+#================================================
+#               Functions
+#================================================
+
+
+#===============Jackal add=====================
+
+StringContains(){
+#$1 = String
+#$2 = subString
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"
+    then
+		ErrorWindowResult="Contains"
+    else
+		ErrorWindowResult="NotContains"
+    fi
+}
+
+IsContains(){
+	string="$1"
+	substring="$2"
+	if [[ $string == *$2* ]]
+	then
+		ErrorWindowResult="Contains"
+	else
+		ErrorWindowResult="NotContains"
+	fi
+}
+
+
+LaunchAP(){
+	#parameter1  APName
+	WriteLog_Info "Launch - $1" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPackageName -e APName "$1"
+	WaitForResult 6
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+		am startservice  --user 0 -n com.asus.at/.MainService -a Launcher -e PackageName "$APIResult"
+		WaitForResult 6
+		if [ "$APIResult" == "true" ]; then
+			WriteLog_Info "Launch:$APIResult" "Action"	
+		else
+			WriteLog_Info "Launch:$APIResult" "Action"	
+		fi
+	else
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+	fi
+	sleep 2
+}
+
+CloseAP(){
+	#parameter1  APName
+	WriteLog_Info "Close - $1" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPackageName -e APName "$1" 
+	WaitForResult 6
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+		am force-stop "$APIResult"	
+	else
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+	fi
+	sleep 2
+}
+
+ClearAP(){
+	#parameter1  APName
+	WriteLog_Info "Clear data - $1" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPackageName -e APName "$1"
+	WaitForResult 6
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+		pm clear "$APIResult"
+	else
+		WriteLog_Info "PackageName:$APIResult" "Action"	
+	fi
+	sleep 2
+
+}
+
+
+CheckTopActivity(){
+	#args 1 : compare activity
+	#args 2 : timeout(if necessary)
+	
+	var_Timeout=""
+	var_Activtyname="$1"
+	var_Timeout="$2"
+		if [ "$var_Timeout" == "" ]; then
+			#default 15 sec timeout
+			var_Timeout="15"			
+		fi
+	WriteLog_Info "CheckTopActivity $var_Activtyname" "Action"	
+	am startservice --user 0 -n com.asus.at/.MainService -a CheckTopActivity -e ActivityName "$var_Activtyname" -e Timeout "$var_Timeout"	
+	WaitForResult $(($var_Timeout+1))
+
+}
+
+GetPositionByUIA(){
+	var_XmlPath=""
+	var_ID=""
+	var_Attribute=""
+	var_Index=""
+	var_XmlPath="$1"        #parameter1 var_XmlPath
+	var_ID="$2" 	        #parameter2 VariableName
+	var_Attribute="$3"  	#parameter3 Attribute			
+	var_Index="$4"			#parameter4 Index
+	WriteLog_Info "[$var_ID]" "Action"
+	if [ "$UpdateMode" == "true" ]; then	
+		#if using resource-id 
+		if [ "$var_Attribute" == "resource-id" ];then
+			am startservice --user 0 -n com.asus.at/.MainService -a GetResourceByID -e XmlPath "$var_XmlPath" -e ID "$var_ID"
+			WaitForResult 6
+			if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+				WriteLog_Info "Language[$Language]:$APIResult" "Action"	
+				var_Value="$APIResult"
+				sleep 2
+			fi
+
+		#if using text or content-desc
+		else
+			am startservice --user 0 -n com.asus.at/.MainService -a GetTextByID -e XmlPath "$var_XmlPath" -e ID "$var_ID"
+			WaitForResult 6
+			if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+				WriteLog_Info "Language[$Language]:$APIResult" "Action"	
+				var_Value="$APIResult"
+				sleep 2
+			fi
+		
+		fi
+		
+		uiautomator dump $path_UIAutomatorXML
+		sleep 1
+		if [ "$var_Index" == "" ]; then
+			var_Index=1
+			
+		fi
+		
+		am startservice --user 0 -n com.asus.at/.MainService -a GetPosition_UIAutomator -e XmlFile "$path_UIAutomatorXML" -e Attribute "$var_Attribute" -e Target "$var_Value" -e Index "$var_Index"
+		WaitForResult 6
+		if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+			WriteLog_Info "Click [$var_ID]:$APIResult" "Action"	
+			am startservice --user 0 -n com.asus.at/.MainService -a Update -e XmlPath "$var_XmlPath" -e ID "$var_ID" -e Position "$APIResult"
+			WaitForResult 6
+			if [ "$APIResult" == "true" ]; then
+				WriteLog_Info "Update Success" "Action"
+				
+			else
+				WriteLog_Info "Update Fail" "Action"
+			fi
+			sleep 1
+		else
+			WriteLog_Info "No uiautomator mapping [$var_ID]. Click default:" "Action"	
+		fi	
+	fi
+	
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPositionByID -e XmlPath "$var_XmlPath" -e ID "$var_ID"
+	WaitForResult 6
+}
+
+ShortClickByUIA(){	
+	GetPositionByUIA $1 $2 $3 $4
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "Click $APIResult " "Action"
+		input tap $APIResult
+		sleep 1
+	else
+		WriteLog_Info "Click fail [$APIResult] " "Action"
+	fi	
+}
+
+LongClickByUIA(){
+	GetPositionByUIA $1 $2 $3 $4
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "Click $APIResult " "Action"
+		input swipe $APIResult $APIResult 2000
+		sleep 1
+	else
+		WriteLog_Info "Click fail [$APIResult] " "Action"
+	fi	
+}
+
+
+ShortClickByID(){
+	#args 1 : Xml path
+	#args 2 : ID
+	var_XmlPath="$1"
+	var_ID="$2"
+	WriteLog_Info "ClickPositionByID [$var_ID]" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPositionByID -e XmlPath "$var_XmlPath" -e ID "$var_ID"
+	if [ "$APIResult" != "" ] || [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "Click $APIResult" "Action"
+		input tap $APIResult
+		sleep 1
+	else
+		WriteLog_Info "Click fail [$APIResult] " "Action"
+	fi
+}
+
+ShortClickByPercentage(){
+	#paramter1 scaleX
+	#paramter2 scaleY
+	am startservice --user 0 -n com.asus.at/.MainService -a ShortClickByPercentage -e ScaleX "$1" -e ScaleY "$2"
+	WaitForResult 11
+	if [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "ShortClickByPercentage success, TestResult = $APIResult" "Action"
+		input tap "$APIResult"
+		sleep 1
+	else
+		WriteLog_Info "ShortClickByPercentage fail, TestResult = $APIResult" "Action"
+		
+	fi
+}
+
+LongClickByPercentage(){
+	#parameter1 ScaleX
+	#parameter2 ScaleY
+	#parameter3 Delay
+	am startservice --user 0 -n com.asus.at/.MainService -a ShortClickByPercentage -e ScaleX "$1" -e ScaleY "$2"
+	WaitForResult 11
+	if [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "LongClickByPercentage success, TestResult = $APIResult" "Action"
+		input touchscreen swipe "$APIResult $APIResult $3"
+		sleep 1
+	else
+		WriteLog_Info "LongClickByPercentage fail, TestResult = $APIResult" "Action"
+		
+	fi
+}
+
+
+DoubleClickByPercentage(){
+	#parameter1 ScaleX
+	#parameter2 ScaleY
+	am startservice --user 0 -n com.asus.at/.MainService -a ShortClickByPercentage -e ScaleX "$1" -e ScaleY "$2"
+	WaitForResult 11
+	if [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "DoubleClickByPercentage success, TestResult = $APIResult" "Action"
+
+		
+		#split APIResult , example APIResult="100 200" will be $X=100 $Y=200
+		str="$APIResult"
+		IFS=" "
+		ary=($str)
+		for key in ""${!ary[@]}"";
+		do
+			if [ "$key" == "0" ] ; then
+				echo  ${ary[$key]}
+				X=${ary[$key]}
+			elif [  "$key" == "1" ]; then
+				echo  ${ary[$key]}
+				Y=${ary[$key]}
+			fi
+		done
+		
+		am startservice --user 0 -n com.asus.at.signkey/.MainService -a DoubleClick -e X "$X" -e Y "$Y"			
+		sleep 1
+	else
+		WriteLog_Info "DoubleClickByPercentage fail, TestResult = $APIResult" "Action"
+	fi
+}
+
+
+DragByPercentage(){
+	#paramter1 fromX
+	#paramter2 fromY
+	#paramter3 toX
+	#paramter4 toY
+	am startservice --user 0 -n com.asus.at/.MainService -a DragByPercentage -e fromX "$1" -e fromY "$2" -e toX "$3" -e toY "$4"
+	WaitForResult 11
+	if [ "$APIResult" != "null" ] || [ "$APIResult" != "error" ]; then
+		WriteLog_Info "DragByPercentage success, TestResult = $APIResult" "Action"
+		input swipe "$APIResult"
+		sleep 1
+	else
+		WriteLog_Info "DragByPercentage fail, TestResult = $APIResult" "Action"
+		
+	fi
+}
+
+GetDevicesMode(){
+	am startservice --user 0 -n com.asus.at/.MainService -a IsTabletMode
+	WaitForResult
+	if [ "$APIResult" == "true" ] ; then
+		WriteLog_Info "Pad Mode"
+		DeviceMode="Pad"
+	else
+		WriteLog_Info "Phone Mode"
+		DeviceMode="Phone"
+	fi
+	
+}
+
+WriteLog_Suggestion(){
+	GetCurrentTime
+	logMsg=""
+	case $# in
+	1)
+	logMsg="[$currentTime] Action Check:$1"
+	;;
+	2)
+  	logMsg="[$currentTime] Action Check:$1 [Result] $2 "
+	;;
+	esac
+	echo "$logMsg"
+	echo "$logMsg" >> $path_Suggestion_Log
+}
+CheckPointByAPI(){
+
+	if [ "$CheckMode" == "true" ] ;then
+		##parameter1 Action Name		
+		case $1 in
+
+		"Cancel auto rotation")
+		 echo "Cancel auto rotation"	
+		 am startservice --user 0 -n com.asus.at/.MainService -a IsAutoRotate
+		 WaitForResult 11
+		 if [ "$APIResult" == "false" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+		
+		"Cancel auto display off")
+		 echo "Cancel auto display off"
+		 am startservice --user 0 -n com.asus.at/.MainService -a IsNeverSleep
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+		
+		"Turn on Bluetooth")
+		 echo "Turn on Bluetooth"
+		 am startservice --user 0 -n com.asus.at/.MainService -a IsBlueToothOn
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		"Login Google Account")
+		 echo "Login Google Account"
+		 am startservice --user 0 -n com.asus.at/.MainService -a CheckAccountExist -e Account $GmailAccount
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		"Login eMail")
+		 echo "Login eMail"
+		 am startservice --user 0 -n com.asus.at/.MainService -a CheckAccountExist -e Account $EmailAccount
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+		
+		"Use 24-hour format")
+		 echo "Use 24-hour format"
+		 am startservice --user 0 -n com.asus.at/.MainService -a Is24HourFormat
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+		"Create default camera folder")
+		 echo "Create default camera folder"
+		 am startservice --user 0 -n com.asus.at/.MainService -a IsFileExist -e FullPath "/sdcard/DCIM/Camera"
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		"Delete default alarm")
+		 echo "Delete default alarm"
+		 uiautomator dump $path_UIAutomatorXML
+		 sleep 1
+		 am startservice --user 0 -n com.asus.at/.MainService -a UIACheckFunction -e ActionName "UIA_DeleteDefaultAlarmCheck" 
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		 
+		;;
+		
+		"Initial Game-Snowbaord")
+		 echo "Initial Game-Snowbaord"
+		;;
+		
+		"Dialer")
+		 echo "Dialer"
+		 am startservice --user 0 -n com.asus.at/.MainService -a GetCallHistoryCount
+		 WaitForResult 11
+		 if [ "$APIResult" -ge 100 ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+		
+		"Create a SIM contact")
+		 echo "Create a SIM contact"
+		  am startservice --user 0 -n com.asus.at/.MainService -a GetContactCount
+		 WaitForResult 11
+		 if [ "$APIResult" -ge 2 ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+
+		;;
+		
+		"Facebook")
+		 echo "Facebook"
+		 am startservice --user 0 -n com.asus.at/.MainService -a CheckAccountExist -e Account "asusskype1@yahoo.com.tw"
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1" "$result"
+		 fi
+		;;
+		
+
+		"Webstorage")
+		 echo "Webstorage"	 
+		 #check 1 account
+		 am startservice --user 0 -n com.asus.at/.MainService -a CheckAccountExist -e Account $WebstorageAccount
+		 WaitForResult 11
+		 if [ "$APIResult" == "true" ] ; then
+			result="Pass"	 
+			WriteLog_Suggestion "$1 check 1" "$result"
+		 else
+			result="Fail"	 
+			WriteLog_Suggestion "$1 check 1" "$result"
+		 fi	 
+		;;
+		
+		esac
+	fi
+	
+	
+}
+
+CheckPointByID(){
+#args1-XmlPath
+#args2-ID
+if [ "$CheckMode" == "true" ] ;then
+	am startservice --user 0 -n com.asus.at/.MainService -a CheckFunction -e XmlPath "$1" -e ID "$2"
+	WaitForResult 5
+	if [ "$APIResult" == "true" ] ;then
+		result="Pass"	 
+		WriteLog_Suggestion "$2" "$result"
+	else
+		result="Fail"	 
+		WriteLog_Suggestion "$2" "$result"
+	fi
+
+fi
+}
+GetCurrentLanguage(){
+	am startservice --user 0 -n com.asus.at/.MainService -a GetDeviceInformation -e Type "Language"
+	WaitForResult 5
+	if [ "$APIResult" == "zh_TW" ]; then
+		Language="TW"
+	elif [ "$APIResult" == "en_US" ]; then
+		Language="US"
+	elif [ "$APIResult" == "ja_JP" ]; then
+		Language="JP"
+	elif [ "$APIResult" == "zh_CN" ]; then
+		Language="CN"
+	else
+		Language="US"
+	fi
+	sleep 1
+}
+
+UIAutomator(){
+	#parameter1 Name
+	#parameter2 Attribute
+	#parameter3 Text
+	#parameter4 ShortClick when mapping fail
+	#parameter5 KEYCODE_BACK?
+
+	WriteLog_Info "[$1]" "Action"
+	uiautomator dump $path_UIAutomatorXML
+	sleep 1
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPosition_UIAutomator -e XmlFile "$path_UIAutomatorXML" -e Attribute "$2" -e Target "$3" -e Index "1"
+	WaitForResult		
+	if [ "$APIResult" != "null" ]; then
+		WriteLog_Info "Click [$1]:$APIResult" "Action"
+		input tap $APIResult
+		sleep $PageDelay
+		if [ "$5" == "Back" ]; then
+			input keyevent KEYCODE_BACK
+			sleep $ActionDelay
+		fi
+			
+	else
+		WriteLog_Info "No uiautomator mapping [$1]. Click default:" "Action"
+		sleep $ActionDelay
+		#input tap "$4"
+		#sleep $PageDelay
+	fi	
+	
+}
+
+
+#==============================================
+
+ShowTime(){
+	CurrentTime=$(date +"%Y%m%d_%H%M%S")
+	echo "Time :" $CurrentTime >> $path_ATST_Log
+	echo "Time :" $CurrentTime
+}
+
+GetCurrentTime(){
+	currentTime=$(date +"%Y/%m/%d %H:%M:%S")
+}
+
+GetStartTime(){
+	CurrentTime=$(date +"%m-%d %H:%M:%S")
+	CurrentTimeInSecond=`date "+%s"`
+}
+
+GetEndTime(){
+	EndTimeInSecond=`date "+%s"`
+	TotalTimeInSecond=$((EndTimeInSecond-CurrentTimeInSecond))
+	
+	SS=$((TotalTimeInSecond%60))
+	MM=$(((TotalTimeInSecond/60)%60))
+	HH=$((TotalTimeInSecond/3600))
+	
+	WriteDebugLogcat "Execument Time : $HH:$MM:$SS"
+}
+
+#-------------------------------------------------------------------
+FillupStorage(){
+	# $1: percentage 
+	# $2: timeout for result
+	am startservice --user 0 -n com.asus.at.fillupstorage/.FillupStorage_ServiceCall -a storage_servicecall -e Fillup $1 -e Timeout 0
+	WaitForResult $2
+}
+
+#-------------------------------------------------------------------
+# Action: Write the log messages to the TestResult file, and(or) logcat on device
+# Parameters:(3) LogMessage, Tag, WriteDebugMsgFlag
+#                          (2) LogMessage, Tag
+#                          (1) LogMessage
+WriteLog_Info(){
+	GetCurrentTime
+	debugFlag=false
+	logMsg=""
+	case $# in
+	1)
+	logMsg="[$currentTime] $1"
+	;;
+	2)
+  	logMsg="[$currentTime] [$2] $1"
+	;;
+	3)
+  	logMsg="[$currentTime] [$2] $1"
+  	debugFlag=$3
+	;;  
+	esac
+	echo "$logMsg"
+	echo "	$logMsg" >> $path_ATST_Log
+	if [ "$debugFlag" == "true" ] ; then
+		WriteDebugMessage "$1"
+	fi
+}
+
+WriteLogcat(){
+	log -p d -t $LogcatTag $1
+}
+
+WriteDebugMessage(){
+	GetCurrentTime
+	debugMsg="[$currentTime] $1"
+	echo $debugMsg>>$path_DebugMsg
+}
+
+WriteDebugLogcat(){
+	WriteLogcat "$1"
+	WriteDebugMessage "$1"
+}
+
+#-------------------------------------------------------------------
+WriteLog_InitialSetup(){
+	echo "" >> $path_ATST_Log
+	echo "------------------------------------ Initial Setup -----------------------------------" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+#Device Info: SW version, HW version....
+WriteLog_StartTest(){
+	GetCurrentTime
+	echo "================================= General Information ================================" >> $path_ATST_Log
+	echo "ATST Tool Ver.: $ToolVersion" >> $path_ATST_Log
+	echo "ATST Tool was started on: $currentTime" >> $path_ATST_Log
+	am startservice --user 0 -n com.asus.at/.MainService -a GetDeviceInformation -e Type "Project"
+	WaitForResult 5
+	echo "DUT Project: $APIResult" >> $path_ATST_Log
+	am startservice --user 0 -n com.asus.at/.MainService -a GetDeviceInformation -e Type "ROM"
+	WaitForResult 5
+	echo "DUT ROM: $APIResult" >> $path_ATST_Log	
+	am startservice --user 0 -n com.asus.at/.MainService -a GetDeviceInformation -e Type "SDKVersion"
+	WaitForResult 5
+	SDKVersion=$APIResult
+	echo "Internal storage= $path_InternalStorage" >> $path_ATST_Log
+	echo "External storage= $path_ExternalStorage" >> $path_ATST_Log
+	if [ "$path_InternalStorage" !=  "none" ]; then
+		am startservice --user 0 -n com.asus.at/.MainService -a GetStorageUsage_LogMsg -e Path "$path_InternalStorage"
+		WaitForResult 3
+		echo $APIResult>>$path_ATST_Log	
+	fi
+	if [ "$path_ExternalStorage" != "none" ]; then
+		am startservice --user 0 -n com.asus.at/.MainService -a GetStorageUsage_LogMsg -e Path "$path_ExternalStorage"
+		WaitForResult 3
+		echo $APIResult>>$path_ATST_Log	
+	fi
+	echo "======================================================================================" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_StartIteration(){	
+	echo "==================================== Iteration $1 =====================================" >> $path_ATST_Log
+	echo "Iteration start time: $2" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_EndIteration(){	
+	echo "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm" >> $path_ATST_Log
+	echo "Iteration end time: $2" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_Loop(){
+	echo "	<Loop $1>" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_StartSection(){
+	echo "------------------------------------ Section $1 -----------------------------" >> $path_ATST_Log
+	GetCurrentTime
+	echo "Section start time: $currentTime" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_EndSection(){
+	echo "------------------------------------ End of Section ----------------------------------" >> $path_ATST_Log
+	GetCurrentTime
+	echo "Section end time: $currentTime" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_StartEvent(){
+	GetCurrentTime
+	echo "# Test Case Name: $1" >> $path_ATST_Log
+	echo "# Test Case Ref: $2" >> $path_ATST_Log
+	echo "# Start time: $currentTime" >> $path_ATST_Log
+	if [ "$path_InternalStorage" !=  "none" ]; then
+		am startservice --user 0 -n com.asus.at/.MainService -a GetStorageUsage_LogMsg -e Path "$path_InternalStorage"
+		WaitForResult 3
+		echo "# $APIResult">>$path_ATST_Log	
+	fi
+	if [ "$path_ExternalStorage" != "none" ]; then
+		am startservice --user 0 -n com.asus.at/.MainService -a GetStorageUsage_LogMsg -e Path "$path_ExternalStorage"
+		WaitForResult 3
+		echo "# $APIResult">>$path_ATST_Log
+	fi
+}
+
+#-------------------------------------------------------------------
+WriteLog_EndEvent(){
+	GetCurrentTime
+	echo "# Event End Time: $currentTime" >> $path_ATST_Log
+	echo "" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+WriteLog_CheckPoint(){
+	#$1: Message
+	#$2: Result
+	echo "	Result: $1 <$2>" >> $path_ATST_Log
+}
+
+#-------------------------------------------------------------------
+# Wait For API Result
+# Parameters:(1) Use the APITimeout set by parameter(seconds)
+#            (0) Use the default delay time
+WaitForResult(){
+	APItimeout=$DefaultAPITimeout	
+	loopCount=0
+  case $# in
+  	#No parameter, use the DefaultAPITimeout
+  	0)
+  	;;
+  	#Use the APITimeout set by parameter
+  	1)
+  		APItimeout=$1
+  	;;
+  esac
+  #Additionally 1 second for waiting API services delete the APIResult file
+  sleep 1
+  echo "Wait $APItimeout seconds to get API result..."
+	while [ ! -f $path_APIResult ] && [ loopCount -lt $APItimeout ]
+	do	
+	  sleep 1
+	  loopCount=$((loopCount+1))
+	  echo $loopCount
+	done
+	#If API result exist, get the result and set to the $APIResult
+	if [ -f $path_APIResult ]
+	then
+	 	APIResult=`cat $path_APIResult`
+	else
+		APIResult="ERROR"
+	fi
+	echo "APIResult = "$APIResult
+	rm $path_APIResult
+}
+
+
+#================================================
+#               Actions
+#================================================
+
+#-------------------------------------------------------------------
+BackBackHome(){
+	WriteLog_Info "Back Home" "Action"
+	input keyevent 4
+    sleep 2
+    input keyevent 4
+    sleep 2
+    input keyevent 3
+	sleep 3
+}
+
+#-------------------------------------------------------------------
+ShortClick(){
+	input tap $1 $2
+}
+
+#-------------------------------------------------------------------
+LongClick(){
+	# $1: Point of X
+	# $2: Point of Y
+	# $3: Delay time
+	input touchscreen swipe $1 $2 $1 $2 $3
+}
+
+#-------------------------------------------------------------------
+SendString(){
+	if [ $# -eq 1 ] ; then
+		input text $1
+	elif [ $# -gt 1 ] ; then
+		while [ $# -gt 0 ]
+		do
+			input text $1
+			shift			
+			# 62?Aspace
+			input keyevent 62			
+		done
+		# 67?ADelete
+		input keyevent 67
+	fi
+}
+
+#-------------------------------------------------------------------
+Drag(){
+	input swipe $1 $2 $3 $4
+}
+
+#-------------------------------------------------------------------
+Screenshot(){
+	mkdir -p "$1"
+	screencap -p "$1/$2_$(date +"%Y%m%d_%H%M%S").png"
+}
+
+ClickGPRS()
+{
+	am start -n com.android.phone/.MobileNetworkSettings
+	sleep 2
+	uiautomator dump $path_UIAutomatorXML
+	sleep 1
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPosition_UIAutomator -e XmlFile "$path_UIAutomatorXML" -e Attribute "id" -e Target "android:id/checkbox" -e Attribute2 "checked" -e Target2 "$2" -e Index "1" -e mapping false
+	WaitForResult	
+	if [ "$APIResult" == "null" ] || [ "$APIResult" == "error" ]; then
+		WriteLog_Info "$1 already" "Action"
+	else
+		WriteLog_Info "Click [$1]" "Action"
+		UIAutomator "GPRS" "resource-id" "android:id/checkbox"
+		sleep 2
+	fi
+}
+
+SetGPRS(){
+	if [ "$1" == "on" ] ; then
+		ClickGPRS "GPRS on" "false"
+	elif [ "$1" == "off" ] ; then
+		ClickGPRS "GPRS off" "true"
+	fi
+}
+#-------------------------------------------------------------------
+KeyPress(){
+	case $1 in
+		"search")
+		input keyevent 84
+		;;
+		"back")
+		input keyevent 4
+		;;
+		"home")
+		input keyevent 3
+		;;
+		"up")
+		input keyevent 19
+		;;
+		"down")
+		input keyevent 20
+		;;
+		"left")
+		input keyevent 21
+		;;
+		"right")
+		input keyevent 22
+		;;
+		"center")
+		input keyevent 23
+		;;
+		"tab")
+		input keyevent 61
+		;;
+		"enter")
+		input keyevent 66
+		;;
+		"volume")
+			case $2 in
+				"up")
+				input keyevent 24
+				;;
+				"down")
+				input keyevent 25
+				;;
+				"mute")
+				input keyevent 164
+				;;
+				*)
+				;;
+			esac		
+		;;
+		"menu")
+		input keyevent 82
+		;;
+		"power")
+		input keyevent 26
+		;;
+		*)
+		;;
+	esac
+}
+
+#-------------------------------------------------------------------
+Backspace(){	
+	i=1
+	while [ $i -le $1 ]
+	do
+		input keyevent KEYCODE_DEL			
+		i=$(($i+1))
+	done	
+}
+
+SetMobileNetworkViaDebuggerTool(){
+	WriteLog_Info "Set network type(DebuggerTool) : $1" "Action"	
+	am start -n com.asus.debugger/.Debugger
+	sleep 2
+	input tap $ATCommandSenderPosition
+	sleep 3
+	Backspace 3	
+	
+	if [ "$1" == "2G" ] ; then
+		WriteLog_Info "Disable 4G" "Action"
+		input text "AT@SETBAND=L,B0" #disable 4G
+		input tap $AT_Command_Send  #1665 220
+		sleep 5
+		Backspace 20
+		WriteLog_Info "Disable 3G" "Action"
+		input text "AT@SETBAND=U,B0" #disable 3G
+		input tap  $AT_Command_Send  #1665 220
+		sleep 5
+	elif [ "$1" == "3G" ] ; then
+		WriteLog_Info "Enable 3G" "Action"
+		input text "AT@SETBAND=U,B1B2B4B5B8" #enable 3G
+		input tap $AT_Command_Send #1665 220
+		sleep 5
+	elif [ "$1" == "4G" ] ; then
+		WriteLog_Info "Enable 4G" "Action"
+		input text "AT@SETBAND=L,B1B2B3B4B5B7B13B17B20" #enable 4G
+		input tap $AT_Command_Send #1665 220
+		sleep 5
+	fi
+	
+	BackBackHome
+	
+	WriteLog_Info "Turn on flight mode" "Action"
+	settings put global airplane_mode_on 1
+	sleep 1
+	am broadcast -a android.intent.action.AIRPLANE_MODE
+	sleep 10
+	WriteLog_Info "Turn off flight mode" "Action"
+	settings put global airplane_mode_on 0
+	sleep 1
+	am broadcast -a android.intent.action.AIRPLANE_MODE
+	sleep 20
+	
+}
+
+LaunchMobileNetworkSetting(){
+	# $1: network type: 2G/3G/4G
+	WriteLog_Info "Turn off WiFi" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a SetWiFiState -e State "OFF"
+	sleep 5	
+	am start -n com.android.phone/.MobileNetworkSettings
+	sleep 2
+	#Network type
+	input tap $NetWorkMode_x $NetWorkMode_y
+	sleep 2	
+	if [ "$1" == "2G" ] ; then
+		WriteLog_Info "Switch GSM" "Action"
+		input tap $Mode2G_x $Mode2G_y
+		sleep 2						
+	elif [ "$1" == "3G" ] ; then
+		WriteLog_Info "Switch WCDMA" "Action"
+		input tap $Mode3G_x $Mode3G_y
+		sleep 2	
+	elif [ "$1" == "4G" ] ; then
+		WriteLog_Info "LTE/GSM/WCDMA auto switch" "Action"
+		input tap $Mode4G_x $Mode4G_y
+		sleep 2
+	fi
+	
+	BackBackHome
+	sleep 20
+
+}
+Launch2GOnlyPage(){
+	WriteLog_Info "Turn off WiFi" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a SetWiFiState -e State "OFF"
+	sleep 5	
+	am start -n com.android.phone/.MobileNetworkSettings
+	sleep 2
+	#Network type
+	input tap $NetWorkMode_x $NetWorkMode_y
+	sleep 2	
+	input tap $Mode2G_x $Mode2G_y
+	sleep 2
+	
+	uiautomator dump $path_UIAutomatorXML
+	sleep 1
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPosition_UIAutomator -e XmlFile "$path_UIAutomatorXML" -e Attribute "id" -e Target "android:id/button1" -e Index "1" -e mapping false
+	WaitForResult
+	if [ "$APIResult" == "null" ] || [ "$APIResult" == "error" ]; then
+		WriteLog_Info "No uiautomator mapping. NO OK button. APIResult:$APIResult" "Action"
+	else
+		WriteLog_Info "Click [OK]:$APIResult" "Action"
+		input tap $APIResult
+		3
+	fi
+}
+ClickNetWorkMode(){
+	uiautomator dump $path_UIAutomatorXML
+	sleep 1
+	am startservice --user 0 -n com.asus.at/.MainService -a GetPosition_UIAutomator -e XmlFile "$path_UIAutomatorXML" -e Attribute "id" -e Target "android:id/checkbox" -e Attribute2 "checked" -e Target2 "$2" -e Index "1" -e mapping false
+	WaitForResult	
+	if [ "$APIResult" == "null" ] || [ "$APIResult" == "error" ]; then
+		WriteLog_Info "$1 already" "Action"
+	else
+		WriteLog_Info "Click [$1]" "Action"
+		#input tap $Mode2G_x $Mode2G_y
+		ShortClickByUIA "$path_ATST_Functions_XML" "UseOnly2G" "resource-id" "1"
+		sleep 2
+		ShortClickByUIA "$path_ATST_Functions_XML" "UseOnly2G_OK" "resource-id" "1"
+	fi
+}
+
+Launch2GOnlyPageMultiSIM(){
+	#$1: 2G or 3G
+	#$2: SIM1 or SIM2
+	WriteLog_Info "Turn off WiFi" "Action"
+	am startservice --user 0 -n com.asus.at/.MainService -a SetWiFiState -e State "OFF"
+	sleep 5	
+	am start -n com.android.phone/.MobileNetworkSettings
+	sleep 2
+	#Network type
+	WriteLog_Info "Network type" "Action"
+	ShortClickByUIA "$path_ATST_Functions_XML" "PreferredNetworkType" "text" "1"
+	sleep 3	
+	UIAutomator "Select SIM TabPage" "text" "$2"
+	if [ "$1" == "2G" ] ; then
+		WriteLog_Info "Switch 2G" "Action"
+		ClickNetWorkMode "2G" "false"
+		sleep 2						
+	elif [ "$1" == "3G" ] ; then
+		WriteLog_Info "Switch 3G" "Action"
+		ClickNetWorkMode "3G" "true"
+		sleep 2	
+	fi
+}
+
+
+#-----Vanessa add note------#
+#$1 NetworkType:2G/3G/4G/Wifi
+#$2 Is setting Network Via DebuggerTool/ MobileNetworkSetting/ UseOnly2G /UseOnly2GMultiSIM
+#$3 SIM1/SIM2
+SetMobileNetworkMode(){
+	WriteLog_Info "Set mobile network mode : $1" "Action"
+	WriteLog_Info "Type: $2" "Action"
+	if [ "$1" == "2G" ] ; then
+		if [ "$2" == "UseOnly2GMultiSIM" ] ; then
+			Launch2GOnlyPageMultiSIM "$1" "$3"
+			BackBackHome
+			return 0
+		fi
+		am startservice --user 0 -n com.asus.at/.MainService -a CheckMobileNetworkType -e Type "2G"
+		WaitForResult
+		if [ "$APIResult" == "true" ] ; then
+			WriteLog_Info "Network type is already 2G." "Action"			
+		else  
+			if [ "$2" == "DebuggerTool" ] ; then
+				SetMobileNetworkViaDebuggerTool $1	
+			elif [ "$2" == "MobileNetworkSetting" ] ; then				
+				LaunchMobileNetworkSetting $1
+			elif [ "$2" == "UseOnly2G" ] ; then				
+				Launch2GOnlyPage $1
+			fi
+		fi	
+	elif [ "$1" == "3G" ] ; then
+		if [ "$2" == "UseOnly2GMultiSIM" ] ; then	
+			Launch2GOnlyPageMultiSIM "$1" "$3"
+			BackBackHome
+			return 0
+		fi
+		am startservice --user 0 -n com.asus.at/.MainService -a CheckMobileNetworkType -e Type "3G"
+		WaitForResult
+		if [ "$APIResult" == "true" ] ; then
+			WriteLog_Info "Network type is already 3G." "Action"			
+		else
+			if [ "$2" == "DebuggerTool" ] ; then
+				SetMobileNetworkViaDebuggerTool $1	
+			elif [ "$2" == "MobileNetworkSetting" ] ; then
+				LaunchMobileNetworkSetting $1
+			elif [ "$2" == "UseOnly2G" ] ; then				
+				Launch2GOnlyPage $1
+			fi
+		fi
+		
+	elif [ "$1" == "4G" ] ; then
+		am startservice --user 0 -n com.asus.at/.MainService -a CheckMobileNetworkType -e Type "4G"
+		WaitForResult
+		if [ "$APIResult" == "true" ] ; then
+			WriteLog_Info "Network type is already 4G." "Action"			
+		else 
+			if [ "$2" == "DebuggerTool" ] ; then
+				SetMobileNetworkViaDebuggerTool $1	
+			elif [ "$2" == "MobileNetworkSetting" ] ; then	
+				LaunchMobileNetworkSetting $1	
+			fi
+		fi			
+	elif [ "$1" == "WiFi" ] ; then
+		am startservice --user 0 -n com.asus.at/.MainService -a IsWiFiConnected
+		WaitForResult
+		#if [ "$APIResult" == "connected" ] ; then
+		if [ "$APIResult" == "true" ] ; then
+			WriteLog_Info "WiFi is connected" "Action"
+		else			
+			WriteLog_Info "WiFi is diconnected. Connect again! AP:$wifi_APName" "Action"
+			#am startservice --user 0 -n com.asus.at/.MainService -a ConnectToWiFiAP -e Ap "$wifi_APName" -e Pwd "$wifi_Password" -e Protocol "$wifi_Protocol"
+			am startservice --user 0 -n com.asus.at/.MainService -a SetWiFiState -e State "ON"
+		fi
+	fi	
+}
+
+PlayStreamingMusic(){
+	WriteLog_Info "Start play streaming music in background" "Debug" "true"
+	
+	WriteLog_Info "Clean chrome cache" "Debug" "true"
+	pm clear com.android.chrome
+	
+	WriteLog_Info "Launch chrome and go to http://grooveshark.com/" "Debug" "true"
+	#am start -n com.android.chrome/com.google.android.apps.chrome.Main -d http://grooveshark.com/
+	am start -n com.android.chrome/com.google.android.apps.chrome.Main -d http://grooveshark.com/#!/music/stations
+	sleep 8
+	
+	#Accept and continue
+	UIAutomator "Chrome-Accept" "id" "com.android.chrome:id/terms_accept"
+	#input tap $Accept_x $Accept_y
+	sleep 2
+	
+	#No, thanks
+	UIAutomator "No, thanks" "id" "com.android.chrome:id/skip_sign_in"
+	#input tap $No_x $No_y
+	sleep 15
+	
+	#UIAutomator "no need" "id" "com.android.chrome:id/button_secondary"
+	
+	#click any category
+	UIAutomator "Any category" "id" "com.android.chrome:id/preload_web_view"
+	#input tap $Rock_x $Rock_y
+	sleep 20
+	
+	#UIAutomator "OK" "id" "android:id/button1"
+	
+	KeyPress home	
+}
+
+StopStreamingMusic(){
+	WriteLog_Info "force-stop chrome application" "Debug" "true"
+	am force-stop com.android.chrome
+}
+#-------------------------------------------------------------------
+CheckIsPause()
+{
+		while read pause; do
+			isPause=$pause
+			break
+		done < $path_ToolInfoFolder/Pause.txt
+
+		Pausecount=0
+		while [ "$isPause" == "1" ]
+		do
+			while read pause; do
+				isPause=$pause
+			break
+			done < $path_ToolInfoFolder/Pause.txt
+			echo "isPause : $isPause"
+			if [ "$Pausecount" == "0" ]; then
+				am startservice --user 0 -n com.asus.at/.MainService -a ToastMessage -e "Message" "Pause"
+				am startservice --user 0 -n com.asus.at/.MainService -a NotificationMessage -e "Title" "Pause" -e "Text" "SSI Pause"
+				am start -n com.asus.at/com.asus.show.PauseActivity
+				echo "Kill logcat process in background..."
+				source "$path_ATST/Core/KillLogcat"
+				Pausecount=$((Pausecount+1))
+			fi
+			sleep 5
+		done
+}
+CheckMonitorExist(){
+	isMonitorPidExist=0
+	MonitorPid=-1
+	isForceStop=0
+	
+	while read monitorPid; do
+		MonitorPid=$monitorPid
+		break
+	done < $path_ToolInfoFolder/MonitorPID.txt
+	
+	ps > $path_ToolInfoFolder/ps.txt
+
+	OLD_IFS="$IFS"
+	IFS=" "
+	while read line; do
+		STR_ARRAY=( $line )
+		if [ "${STR_ARRAY[1]}" == "$MonitorPid" ]; then
+			isMonitorPidExist=1
+			sleep 1
+			break
+		fi
+	done < $path_ToolInfoFolder/ps.txt
+	IFS="$OLD_IFS"
+	
+	while read forcestop; do
+		isForceStop=$forcestop
+		break
+	done < $path_ToolInfoFolder/ForceStop.txt
+	
+	if [ "$isMonitorPidExist" == "0" ]; then
+		if [ "$isForceStop" == "0" ]; then
+			echo "MonitorPID not exist, restarting..."
+			sh /sdcard/ATST/Core/ShellMonitor &
+		fi
+	fi
+}
+SubString(){
+	# $1: input string
+	# $2: start index
+	# $3: length
+	inputString=$1	
+	FunctionReturnValue=${inputString:$2:$3}
+}
+
+StringLength(){
+FunctionReturnValue=${#1}
+}

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while read line; do
+   echo "Kill PID : $line"
+   kill -1 $line
+done < "$path_LogcatPID"

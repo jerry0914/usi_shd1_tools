@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ScanXmit</string>
+    <string name="titleLoopTimes">Loop  : </string>
+    <string name="titleInterval">Interval : </string>
+    <string name="titleBtnStart">Start</string>
+    <string name="titleTestResult">Test Result : </string>
+    <string name="titleIp">IP : </string>
+    <string name="titlePort">Port : </string>
+    <string name="checkSize">Data Length : </string>
+    <string name="titleTime">Interval : </string>
+    <string name="titlePass">Pass : </string>
+
+    <color name="colorResultPass">#00CC00</color>
+    <color name="colorResultFail">#FF0000</color>
+    <color name="colorResultND">#FF4410</color>
+
+    <string name="titleFail">Fail : </string>
+    <string name="titleND"> N.D : </string>
+    <string name="titleBtnTestScan">Scan test</string>
+    <string name="titleTimeout">Timeout : </string>
+    <string name="titleDecode">Decode Settings : </string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="chkEnableDisableEachScan">Toggle scanner on/off for every cycle</string>
+    <string name="title_activity_scan_dealy_settings">ScanDealySettings</string>
+    <string name="lblScanEnableDelay">Scanner Enable Delay :</string>
+    <string name="lblScanDisableDelay">Scanner Disable Delay :</string>
+    <string name="action_settings">Settings</string>
+    <string name="titleTransfer">"Transfer Settings : "</string>
+    <string name="titleResult">"Result : "</string>
+    <string name="title_activity_data_transfer_settings">DataTransferSettings</string>
+    <string name="title_activity_set_parameters">SetParametersActivity</string>
+    <string name="title_activity_suspend_resume_settings">SuspendResumeSettings</string>
+    <string name="title_activity_activity_scan_setting">Activity_scan_setting</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_trigger_scan_settings">TriggerScanSettings</string>
+    <string name="title_activity_handsfree_scan_settings">HandsfreeScanSettings</string>
+    <string name="title_activity_cardhu_api_test">CardhuApiTest</string>
+    <string name="itemApiTest">Cardhu API Test</string>
+
+</resources>

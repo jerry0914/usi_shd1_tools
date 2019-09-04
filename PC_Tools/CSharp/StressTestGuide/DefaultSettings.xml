@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DefaultSettings>
+  <Common>
+    <DefaultPlatform>CE</DefaultPlatform>
+  </Common>
+  <Install>
+    <Platform name="Android">
+      <TestPlanFolder>%userprofile%\Desktop</TestPlanFolder>
+      <FilterKeyword enable="true">Android Stress</FilterKeyword>
+      <TestResultFilter>25</TestResultFilter>
+      <ConfigSourceFolder>%userprofile%\Desktop</ConfigSourceFolder>
+      <ProfilePath></ProfilePath>
+      <QuickEditor>
+        <Item enable ="false" keyword="ip">192.168.10.146</Item>
+        <Item enable ="false " keyword="port"></Item>
+        <Item enable ="false " keyword="source"></Item>
+      </QuickEditor>
+    </Platform>
+    <Platform name="CE">
+      <TestPlanFolder>%userprofile%\Desktop</TestPlanFolder>
+      <FilterKeyword enable="true">Stress:007</FilterKeyword>
+      <TestResultFilter>25</TestResultFilter>
+      <ConfigSourceFolder>%userprofile%\Desktop</ConfigSourceFolder>
+      <ProfilePath></ProfilePath>
+      <QuickEditor>
+        <Item enable ="true" keyword="ip">192.168.10.146</Item>
+        <Item enable ="false" keyword="port"></Item>
+        <Item enable ="false" keyword="source"></Item>
+      </QuickEditor>
+    </Platform>
+  </Install>
+  <Initial>
+    <ScriptFolder>.\ATST\Scripts</ScriptFolder>
+  </Initial>    
+</DefaultSettings>

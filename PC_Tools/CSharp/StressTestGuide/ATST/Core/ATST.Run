@@ -1,0 +1,195 @@
+#!/bin/bash
+#================================================
+#               Script Info
+#================================================
+ScriptID=ATST.run
+ScriptName=ATST.run
+ScriptOwner="Jerry_Huang"
+
+#================================================
+#               Initial Setup
+#================================================
+if [ -f "/sdcard/ATST/Core/ATST.Variables" ]; then
+	source /sdcard/ATST/Core/ATST.Variables
+fi
+if [ -f "/sdcard/ATST/Scripts/Variable.Settings" ]; then
+	source /sdcard/ATST/Scripts/Variable.Settings
+fi
+if [ -f "/sdcard/ATST/Core/ATST.Functions" ]; then
+	source /sdcard/ATST/Core/ATST.Functions
+fi
+if [ -f "/sdcard/ATST/Scripts/TC.Functions" ]; then
+	source /sdcard/ATST/Scripts/TC.Functions
+fi
+
+touch $path_ATST_Log
+APIResult=""
+#========== Get MemInfo Log ==============
+# sh /sdcard/ATST/Core/MemInfo &
+#========== Start to record log message in background ==============
+echo 0 > /sdcard/ATST/ToolInfo/Pause.txt
+while read count; do
+	ATSTRunCount=$count
+	break
+done < $path_ToolInfoFolder/ATSTRunCount
+
+#if [ -f $path_LogcatPID ] ; then
+#	echo "Kill logcat process in background..."
+#	source "$path_ATST/Core/KillLogcat"
+#fi
+#echo "Recording logcat in background..."
+#source "$path_ATST/Core/RunLogcat"
+			
+ATSTRunCount=$((ATSTRunCount+1))
+echo "ATSTRunCount : $ATSTRunCount"
+echo $ATSTRunCount > $path_ToolInfoFolder/ATSTRunCount
+
+#========== Get ATST main shell's PID ==============
+rm $path_MyPID
+echo $$  >> $path_MyPID
+#========== Save current log path to file ==============
+rm $path_CurrentLogPath
+echo $path_ATST_Log >> $path_CurrentLogPath
+#========== Save initial flag to file ==============
+echo 0 > $path_ToolInfoFolder/ForceStop.txt
+
+if [ ! -f $path_ToolInfoFolder/Pause.txt ] ; then
+	echo 0 > $path_ToolInfoFolder/Pause.txt
+fi
+#========== Run Type & Run Mode ==============
+#Run Type="SSI" or "MTBF"
+#if [ "$1" == "SSI" ] ; then
+#  RunType="SSI"
+#fi
+#if [ "$1" == "MTBF" ] ; then
+#  RunType="MTBF"
+#fi
+#if [ "$1" == "Stress" ] ; then
+#  RunType="Stress"
+#fi
+#echo $RunType > $path_RunningType
+#Run Mode="Sequential=0" or "Random=1"
+#if [ "$2" == "0" ] ; then
+#  RunMode=0
+#fi
+#if [ "$2" == "1" ] ; then
+#  RunMode=1
+#fi
+#echo $RunMode > $path_RunningMode
+#
+##RunInitialSetup="true" or "false"
+#if [ "$3" == "false" ] ; then
+  RunInitialSetup="false"
+#else
+#  RunInitialSetup="true"
+#fi
+
+
+
+#================================================
+#               Execution
+#================================================
+WriteLog_StartTest
+#WriteDebugLogcat "===== $RunType Start ====="
+
+am startservice --user 0 -n com.asus.at/.MainService -a ToastMessage -e "Message" "Start"
+am startservice --user 0 -n com.asus.at/.MainService -a CancelAllNotifications
+am startservice --user 0 -n com.asus.at/.MainService -a NotificationMessage -e "Title" "Start" -e "Text" "Tool is running." -e "ImageName" "start"
+
+ary=() 
+index=0
+
+while read line; do
+   ary[$index]="$line"
+   index=$((index+1))
+done < "$path_TestCaseList"
+
+#WriteDebugLogcat "===== Settings ====="
+CheckIsPause
+#----Remove ShellMonitor temporarily----# 
+#CheckMonitorExist
+if [ "$RunInitialSetup" != "false" ] ; then
+GetStartTime
+	if [ -f "$path_InitialSetup" ]; then
+		echo "Execupath_InitialSetupte InitialSetup."
+		source "$path_InitialSetup"
+	else
+		echo "InitialSetup does not exists"
+	fi
+GetEndTime
+fi
+
+
+
+iterationCount=1
+#while [ true ]
+#do
+#	if [ $RunMode == 0 ]; then
+#		index=0 
+#		line=${#ary[@]}
+#		while [ $line -gt 0 ]
+#		do
+#			random=$(( $RANDOM % $line + $index ))
+#				
+#			temp=${ary[$index]}
+#			ary[$index]=${ary[$random]}
+#			ary[$random]=$temp	
+#			
+#			line=$((line-1))
+#			index=$((index+1))
+#		done
+#	fi
+	GetCurrentTime
+	startTime_Iteration=$currentTime
+	WriteLog_StartIteration "$iterationCount" "$startTime_Iteration"	
+#	WriteDebugLogcat "===== Iteration $iterationCount ====="
+	
+	for key in "${!ary[@]}";
+	do
+		echo $iterationCount > $path_ToolInfoFolder/CurrentIteration
+		echo $((key+1)) > $path_ToolInfoFolder/CurrentSection
+		#echo "section="$key+1
+		CheckIsPause
+		#----Remove ShellMonitor temporarily----# 
+		#CheckMonitorExist
+		
+#		if [ "$RunType" == "MTBF" ] ; then
+#			if [ "$flag_AutoFillupStorageForMTBF" == "true" ] ; then
+#				echo "" >> $path_ATST_Log
+#				WriteLog_Info "Start calibration of the storage fillup to $AutoFillupStorageUsedRate%" "Action"	
+#				FillupStorage $AutoFillupStorageUsedRate 2400
+#				WriteLog_Info "Finish calibration" "Action"	
+#				echo "" >> $path_ATST_Log
+#			fi
+#		fi
+		
+		FullName=$path_ScriptFolder/${ary[$key]}
+		echo ""
+		echo ""
+		echo $FullName" Start"
+		WriteLog_Info $FullName" Start"
+#		WriteDebugLogcat "${ary[$key]} Start"
+		echo ""
+		WriteLog_Info ""
+		
+		GetStartTime
+		source $FullName
+		GetEndTime
+		
+		sleep 3
+	done
+	
+	sleep 3	
+	GetCurrentTime
+	endTime_Iteration=$currentTime
+	WriteLog_EndIteration "$startTime_Iteration" "$endTime_Iteration"	
+	iterationCount=$(($iterationCount+1))
+	
+	#if [ "$RunType" == "Stress" ] ; then
+		UpdateMode="false"
+	#	echo "Set UpdateMode to false,UpdateMode=$UpdateMode." >> $path_ATST_Log
+	#fi
+#done
+am startservice --user 0 -n com.asus.at/.MainService -a CancelAllNotifications
+am startservice --user 0 -n com.asus.at/.MainService -a NotificationMessage -e "Title" "Stop" -e "Text" "Tool is stoped." -e "ImageName" "stop"
+exit 0

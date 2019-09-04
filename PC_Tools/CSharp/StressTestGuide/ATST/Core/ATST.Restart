@@ -1,0 +1,17 @@
+#!/bin/bash
+source /sdcard/ATST/Core/ATST.Variables
+
+echo 0 > "$path_ToolInfoFolder/Pause.txt"
+
+while read pause; do
+	isPause=$pause
+	break
+done < $path_ToolInfoFolder/Pause.txt
+
+if [ "$isPause" == "0" ]; then
+	logcat -c
+	echo "Recording logcat in background..."
+	source "$path_ATST/Core/RunLogcat"
+	am startservice --user 0 -n com.asus.at/.MainService -a ToastMessage -e "Message" "Start"
+	am startservice --user 0 -n com.asus.at/.MainService -a NotificationMessage -e "Title" "Start" -e "Text" "SSI Start"
+fi

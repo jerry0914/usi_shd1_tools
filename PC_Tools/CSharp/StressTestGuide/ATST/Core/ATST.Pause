@@ -1,0 +1,5 @@
+#!/bin/bash
+source /sdcard/ATST/Core/ATST.Variables
+
+echo 1 > "$path_ToolInfoFolder/Pause.txt"
+

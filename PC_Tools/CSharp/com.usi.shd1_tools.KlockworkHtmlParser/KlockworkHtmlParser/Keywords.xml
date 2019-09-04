@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <Category name="Audio" enable="true">
+	<Keyword>/alps/mediatek/external/amr/</Keyword>
+    <Keyword>/alps/mediatek/external/</Keyword>
+    <Keyword>/alps/mediatek/external/cvsd_plc_codec/</Keyword>
+    <Keyword>/alps/mediatek/external/audioATCmdHandlerServer</Keyword>
+    <Keyword>/alps/mediatek/external/audiocommand</Keyword>
+    <Keyword>/alps/mediatek/external/AudioCompensationFilter</Keyword>
+    <Keyword>/alps/mediatek/external/AudioComponentEngine</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/audioprofile/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/audioprofile/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/mom/</Keyword>
+    <Keyword>/alps/mediatek/frameworks-ext/av/services/audioflinger/</Keyword>
+    <Keyword>/alps/audiocustparam</Keyword>
+    <Keyword>/alps/audiodcremoveflt</Keyword>
+    <Keyword>/alps/audioregsetting</Keyword>
+    <Keyword>/alps/AudioSetParam</Keyword>
+    <Keyword>/alps/audiosetting</Keyword>
+    <Keyword>/alps/AudioSpeechEnhancement</Keyword>    
+    <Keyword>/alps/mediatek/custom/cardhu/hal/audioflinger/audio/</Keyword>
+  </Category>
+  <Category name="Memory" enable="true">
+	<Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/lowstorage/</Keyword> 
+    <Keyword>/alps/mediatek/frameworks/base/storage/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/lowstorage/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/storage/</Keyword>
+  </Category>
+  <Category name="USB" enable="true">
+    <Keyword>/alps/mediatek/kernel/drivers/usb20</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/kernel/drivers/usb20/</Keyword>
+  </Category>
+  <Category name="SD" enable="true">
+    <Keyword>/alps/mediatek/kernel/drivers/xhci/</Keyword>
+  </Category>
+  <Category name="LED" enable="true">
+	<Keyword>/alps/mediatek/custom/cardhu/lk/</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/lk/</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/lk/include/platform/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/leds/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/leds/mt65xx/</Keyword>
+    <Keyword>/alps/kernel/mediatek/platform/mt6582/kernel/drivers/leds/</Keyword>
+    <Keyword>/alps/mediatek/hardware/liblights/</Keyword>
+    <Keyword>/alps/frameworks/base/services/jni/</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/usi/scanning/</Keyword>
+  </Category>
+  <Category name="Vibrator" enable="true">
+    <Keyword>/alps/mediatek/platform/mt6582/lk/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/vibrator/</Keyword>
+  </Category>
+  <Category name="Battery" enable="true">
+	<Keyword>/alps/mediatek/external/batterywarning/</Keyword>  
+    <Keyword>/alps/frameworks/native/include/batteryservice</Keyword>
+    <Keyword>/alps/frameworks/native/services/batteryservice</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/BatteryService.java</Keyword> 
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/am/</Keyword>
+    <Keyword>/alps/frameworks/base/packages/SystemUI/src/com/android/systemui/BatteryMeterView.java</Keyword>
+    <Keyword>/alps/frameworks/base/packages/SystemUI/res/values/</Keyword> 
+    <Keyword>/alps/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/</Keyword>
+    <Keyword>/alps/frameworks/base/core/res/res/values/</Keyword>  
+    <Keyword>/alps/frameworks/base/core/res/res/xml/power_profile.xml</Keyword>
+    <Keyword>/alps/frameworks/base/core/java/com/android/internal/os/</Keyword>
+    <Keyword>/alps/frameworks/base/cmds/svc/src/com/android/commands/svc/PowerCommand.java</Keyword>  
+    <Keyword>/alps/system/core/healthd</Keyword>
+  </Category>
+  <Category name="PowerManager" enable="true">
+	<Keyword>/alps/mediatek/frameworks/base/poad/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/pmic_wrap/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/power/</Keyword>   
+    <Keyword>/alps/frameworks/native/include/powermanager</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/power</Keyword>
+    <Keyword>/alps/frameworks/base/services/jni/com_android_server_power_PowerManagerService.cpp</Keyword>
+    <Keyword>/alps/frameworks/native/services/powermanager/IPowerManager.cpp</Keyword>
+    <Keyword>/alps/frameworks/base/packages/SystemUI/src/com/android/systemui/power/PowerUI.java</Keyword>   
+    <Keyword>/alps/frameworks/base/core/java/android/os/PowerManager.java</Keyword>
+  </Category>
+  <Category name="Charging" enable="true">
+	<Keyword>/alps/bootable/bootloader/lk/platform/mediatek/mt6582/lk</Keyword>
+    <Keyword>/alps/kernel/drivers/power</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/settings/fuelgauge/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/power/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/battery/battery/</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/kernel/drivers/power</Keyword>
+  </Category>
+  <Category name="RTC" enable="true">
+	<Keyword>/alps/mediatek/kernel/drivers/clock/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/rtc/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/res/xml/</Keyword>
+  </Category>
+  <Category name="Display" enable="true">
+    <Keyword>/alps/mediatek/frameworks/native/services/surfaceflinger/</Keyword>
+    <Keyword>/alps/mediatek/hardware/hwcomposer/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/lcm/otm8018b_dsi_vdo</Keyword>
+  </Category>
+  <Category name="Touch" enable="true">
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/touchpanel/ektf3248/</Keyword>
+  </Category>
+  <Category name="Backlight" enable="true">
+    <Keyword>/alps/mediatek/custom/cardhu/resource_overlay/generic/frameworks/base/core/res/res/values/</Keyword>
+  </Category>
+  <Category name="Keypad" enable="true">
+    <Keyword>/alps/kernel/include/linux/input.h</Keyword>
+    <Keyword>/alps/hardware/libhardware/include/hardware/progkey.h</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/keypad/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/kpd/kpd/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/system/button_remap/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/system/ConfigUpdate/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/keypad/</Keyword>
+    <Keyword>/alps/mediatek/config/cardhu/mtk-kpd.kl</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/lk/boot_mode.c</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/lk/include/platform/mt_reg_base.h</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/media/audio/java/com/mediatek/audioprofile/</Keyword>
+    <Keyword>/alps/frameworks/base/core/java/android/view/KeyEvent.java</Keyword>
+    <Keyword>/alps/frameworks/base/data/keyboards/Generic.kl</Keyword>
+    <Keyword>/alps/frameworks/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java</Keyword>
+    <Keyword>/alps/frameworks/base/policy/src/com/android/internal/policy/impl/ShortcutManager.java</Keyword>
+    <Keyword>/alps/frameworks/native/include/input/KeycodeLabels.h</Keyword>
+  </Category>
+  <Category name="MultiMedia" enable="true">
+	<Keyword>/alps/mediatek/hardware/dpframework/</Keyword>
+    <Keyword>/alps/mediatek/hardware/gralloc_extra/</Keyword>
+    <Keyword>/alps/mediatek/hardware/imagecodec/</Keyword>
+    <Keyword>/alps/mediatek/hardware/omx/</Keyword>  
+    <Keyword>/alps/mediatek/kernel/drivers/video/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/videocodec/</Keyword>   
+    <Keyword>/alps/mediatek/frameworks/av/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/drm/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/media/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/media/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/dcfdecoder/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/media/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/mpodecoder/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/stereo3d/</Keyword>
+    <Keyword>/alps/mediatek/frameworks-ext/av/media/</Keyword>
+  </Category>
+  <Category name="Scanner" enable="true">
+	<Keyword>/alps/frameworks/base/core/java/com/symbol/scanning/</Keyword>
+    <Keyword>/alps/mediatek/packages/apps/ScanDemo/src/com/usi/scanning/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/scanner.xml</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/hardware/mtkcom/v1/hal/adapter/MtkDefault/Preview/PreviewCmdQueThread.cpp</Keyword>
+    <Keyword>/alps/frameworks/base/service/java/com/motorolasolutions/</Keyword>
+    <Keyword>/alps/frameworks/base/service/java/com/usi/</Keyword>
+    <Keyword>/alps/frameworks/av/services/camera/libcameraservice/CameraService.cpp</Keyword>
+    <Keyword>/alps/system/core/rootdir/ueventd.rc</Keyword>
+    <Keyword>/alps/frameworks/base/core/java/com/symbol/scanning/</Keyword>
+    <Keyword>/alps/frameworks/base/core/java/com/usi/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/imgsensor/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/hal/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/hal/imgsensor/</Keyword>
+	<Keyword>/alps/mediatek/packages/apps/ScanConfig/</Keyword>
+    <Keyword>/alps/frameworks/base/services/jni/com_usi_scanning_serial_SerialPort.cpp</Keyword>
+  </Category>
+  <Category name="Sensor" enable="true">
+    <Keyword>/alps/mediatek/custom/cardhu/hal/sensors/sensor/</Keyword>
+    <Keyword>/alps/mediatek/hardware/sensor/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/hwmon/</Keyword>
+    <Keyword>/alps/mediatek/external/sensor-tools/</Keyword>
+    <Keyword remark="Accelerometer">/alps/mediatek/custom/cardhu/kernel/accelerometer/kxcjk1013</Keyword>
+    <Keyword remark="LightSensor,ProximitySensor">/alps/mediatek/custom/cardhu/kernel/alsps</Keyword>
+    <Keyword renark="ThermalSensor">/alps/mediatek/external/thermal/</Keyword>
+    <Keyword renark="ThermalSensor">/alps/mediatek/frameworks/common/src/com/mediatek/common/thermal/</Keyword>
+    <Keyword renark="ThermalSensor">/alps/mediatek/kernel/drivers/thermal/</Keyword>
+  </Category>
+  <Category name="Camera" enable="true">
+	<Keyword>/alps/mediatek/hardware/include/mtkcam/</Keyword> 
+    <Keyword>/alps/mediatek/custom/cardhu/hal/imgsensor/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/hal/lens/</Keyword>
+    <Keyword>/alps/mediatek/frameworks-ext/av/camera/</Keyword>
+    <Keyword>/alps/mediatek/frameworks-ext/av/services/camera/</Keyword>   
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/camera</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/hal/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/mt6582/hal/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/kernel/imgsensor/inc/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/hal/imgsensor/src/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/hal/inc/</Keyword>
+  </Category>
+  <Category name="Flashlight" enable="true">
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/flashlight/</Keyword>
+    <Keyword>/alps/mediatek/custom/mt6582/hal/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/kernel/flashlight/inc/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/kernel/flashlight/src/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/hal/flashlight/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/hal/inc/</Keyword>
+  </Category>
+  <Category name="AF" enable="true">
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/lens/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/hal/lens/</Keyword>
+    <Keyword>/alps/mediatek/custom/mt6582/hal/camera/</Keyword>
+    <Keyword>/alps/mediatek/custom/common/hal/inc/</Keyword>
+  </Category>
+  <Category name="SIM" enable="true">
+    <Keyword>/alps/mediatek/hardware/terservice/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/dual_ccci/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/wmt_ccci/</Keyword>
+  </Category>
+  <Category name="WWAN" enable="true">
+    <Keyword>/alps/mediatek/kernel/drivers/conn_md/</Keyword>
+    <Keyword>/alps/mediatek/hardware/ril/</Keyword>
+    <Keyword>/alps/mediatek/hardware/gsm0710muxd/</Keyword> 
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/telephony/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/telephony/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/telephony/</Keyword> 
+    <Keyword>/alps/mediatek/kernel/drivers/conn_md/</Keyword>
+    <Keyword>/alps/mediatek/operator/</Keyword>  
+    <Keyword>/alps/packages/apps/Settings/src/com/android/settings/</Keyword>
+    <Keyword>/moly/custom</Keyword>
+    <Keyword>/moly/make</Keyword>
+    <Keyword>/moly/make.sh</Keyword>
+    <Keyword>/moly/mtk_rel</Keyword>
+    <Keyword>/moly-wet-kk-tddhspa/custom</Keyword>
+    <Keyword>/moly-wet-kk-tddhspa/make</Keyword>
+    <Keyword>/moly-wet-kk-tddhspa/make.sh</Keyword>
+    <Keyword>/moly-wet-kk-tddhspa/mtk_rel</Keyword>
+  </Category>
+  <Category name="SMS" enable="true">
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/sms/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/sms/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/smsdbpermission/</Keyword>
+  </Category>
+  <Category name="WIFI" enable="true">
+    <Keyword>/alps/mediatek/kernel/drivers/conn_soc/</Keyword>
+    <Keyword>/alps/mediatek/external/wlan_loader/</Keyword>
+    <Keyword>/alps/mediatek/external/combo_tool/</Keyword>
+    <Keyword>/alps/mediatek/external/mtk_wifi/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/wifi/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/util/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/net/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/net/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/wifi/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/combo/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/common_detect/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/conn_soc/</Keyword>
+	<Keyword>/alps/frameworks/base/services/java/com/android/server/wifi/</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/connectivity/</Keyword>
+    <Keyword>/alps/frameworks/base/wifi/java/android/net/wifi/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/res/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/android/settings/wifi/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/android/settings/wfd/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/wireless/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/wifi/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/settings/wfd/</Keyword>
+  </Category>
+  <Category name="Bluetooth" enable="true">
+    <Keyword>/alps/mediatek/external/bluetooth/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/bluetooth/</Keyword>
+    <Keyword>/alps/frameworks/bluetooth/blueangel/include/pal/</Keyword>
+    <Keyword>/alps/packages/apps/Bluetooth/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/settings/bluetooth/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/android/settings/bluetooth/</Keyword>
+  </Category>
+  <Category name="GPS,AGPS" enable="true">
+    <Keyword>/alps/mediatek/hardware/gps/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/gps/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/agps/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/agps/</Keyword>
+    <Keyword>/alps/packages/apps/Settings/src/com/android/settings/location/</Keyword>
+  </Category>
+  <Category name="NFC" enable="true">
+    <Keyword>/alps/packages/apps/Settings/src/com/mediatek/nfc/</Keyword>
+    <Keyword>/alps/mediatek/external/mtknfc/</Keyword>
+  </Category>
+  <Category name="Tools and Debug" enable="true">
+    <Keyword>/alps/mediatek/binary/packages/cardhu/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/fastboot/</Keyword>
+    <Keyword>/alps/mediatek/external/meta/</Keyword>
+    <Keyword>/alps/mediatek/factory/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/dbg_dump/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/mlog/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/msgmonitorservice/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/tests/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/msgmonitorservice/</Keyword>
+  </Category>
+  <Category name="MTK common" enable="true">
+    <Keyword>/alps/mediatek/config/common/</Keyword> 
+    <Keyword>/alps/mediatek/custom/common/</Keyword>
+    <Keyword>/alps/mediatek/build/</Keyword>
+    <Keyword>/alps/mediatek/platform/common/</Keyword>
+    <Keyword>/alps/packages/</Keyword>
+    <Keyword>/alps/libcore/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/api/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/res/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/search/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/voicecommand/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/native/</Keyword>
+    <Keyword>/alps/frameworks/base/api/current.txt</Keyword>
+    <Keyword>/alps/packages/apps/Settings/</Keyword>
+  </Category>
+  <Category name="MTK NVRAM" enable="true">
+	<Keyword>/alps/mediatek/external/nvram/</Keyword>
+    <Keyword>/alps/mediatek/external/permission_check/</Keyword>
+  </Category>
+  <Category name="MTK Kernel" enable="true">
+    <Keyword>/alps/mediatek/kernel/include/mach</Keyword> 
+    <Keyword>/alps/mediatek/kernel/drivers/mtkpasr/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/mtprof/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/gpio/</Keyword>
+    <Keyword>/alps/mediatek/kernel/drivers/uart/</Keyword>
+    <Keyword>/alps/mediatek/kernel/include/mach/</Keyword>
+    <Keyword>/alps/mediatek/kernel/kernel/</Keyword>      
+  </Category>
+  <Category name="MTK_APP" enable="true">
+	<Keyword>/alps/mediatek/packages/apps/</Keyword>
+  </Category>
+  <Category name="MT6582 specific" enable="true">
+    <Keyword>/alps/mediatek/config/mt6582/</Keyword>
+    <Keyword>/alps/mediatek/custom/mt6582/</Keyword>
+    <Keyword>/alps/mediatek/platform/mt6582/</Keyword>
+  </Category>
+  <Category name="Bootloader" enable="true">
+    <Keyword>/alps/bootable/bootloader/lk/</Keyword>
+  </Category>
+  <Category name="Cardhu specific" enable="true">
+	<Keyword>/alps/mediatek/dct</Keyword>
+    <Keyword>/alps/build/target/product/cardhu.mk</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/</Keyword>
+    <Keyword>/alps/mediatek/custom/cardhu/kernel/dct/dct/</Keyword>
+    <Keyword>/alps/mediatek/config/cardhu/</Keyword>   
+    <Keyword>/alps/mediatek/external/boot_logo_updater/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/base/op/java/com/mediatek/op/bootanim/</Keyword>
+    <Keyword>/alps/mediatek/frameworks/common/src/com/mediatek/common/bootanim/</Keyword>
+    <Keyword>/alps/vendor/mediatek/cardhu/artifacts/</Keyword>
+  </Category>
+  <Category name="Power on" enable="true">
+    <Keyword>/alps/frameworks/base/core/java/android/view/</Keyword>
+    <Keyword>/alps/frameworks/base/core/res/res/drawable-hdpi/</Keyword>
+    <Keyword>/alps/frameworks/base/core/res/res/values/</Keyword>
+    <Keyword>/alps/frameworks/base/policy/src/com/android/internal/policy/impl/</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/power/</Keyword>
+    <Keyword>/alps/frameworks/base/services/java/com/android/server/wm/</Keyword>
+    <Keyword>/alps/frameworks/base/core/res/res/values-zh-rCN/</Keyword>
+    <Keyword>/alps/frameworks/base/core/res/res/values-zh-rTW/</Keyword>
+    <Keyword>/alps/frameworks/base/policy/</Keyword>
+    <Keyword>/alps/frameworks/base/services//java/com/android/server/</Keyword>    
+    <Keyword>/alps/mediatek/kernel/drivers/boot/</Keyword>
+  </Category>
+</root>

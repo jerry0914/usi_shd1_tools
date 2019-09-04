@@ -1,0 +1,56 @@
+#!/bin/bash
+#touch /sdcard/ShellMonitor/MonitorPID.txt
+echo $$ > /sdcard/ATST/ToolInfo/MonitorPID.txt
+echo 0 > /sdcard/ATST/ToolInfo/ForceStop.txt
+#isPidExist
+#	0:not exist
+#	1:exist
+isPidExist=0
+RunPID=-1
+isForceStop=0
+
+CheckRunExist(){
+	isPidExist=0
+	RunPID=-1
+	isForceStop=0
+	
+	while read runPid; do
+		RunPID=$runPid
+		break
+	done < /sdcard/ATST/ToolInfo/MyPID
+	
+	ps > /sdcard/ATST/ToolInfo/mps.txt
+
+	OLD_IFS="$IFS"
+	IFS=" "
+	while read line; do
+		STR_ARRAY=( $line )
+		if [ "${STR_ARRAY[1]}" == "$RunPID" ]; then
+			isPidExist=1			
+			sleep 1			
+			break
+		fi
+	done < /sdcard/ATST/ToolInfo/mps.txt
+	IFS="$OLD_IFS"
+
+	while read forcestop; do
+		isForceStop=$forcestop
+		break
+	done < /sdcard/ATST/ToolInfo/ForceStop.txt
+	
+	if [ "$isPidExist" == "0" ]; then
+		if [ "$isForceStop" == "0" ]; then
+			echo "PID not exist, restarting..."
+			sh /sdcard/ATST/Core/ATST.Run &
+		fi
+	fi
+	sleep 1
+}
+
+
+while [ true ]
+do
+	CheckRunExist
+	sleep 1
+done
+echo Done!

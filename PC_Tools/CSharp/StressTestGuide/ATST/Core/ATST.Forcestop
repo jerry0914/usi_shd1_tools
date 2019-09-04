@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo 1 > /sdcard/ATST/ToolInfo/ForceStop.txt
+
+PID=`cat /sdcard/ATST/ToolInfo/MyPID`
+kill -1 $PID
+rm /sdcard/ATST/ToolInfo/MyPID
+
+MemPID=`cat /sdcard/ATST/ToolInfo/MemPID`
+kill -1 $MemPID
+rm /sdcard/ATST/ToolInfo/MemPID
+
+am startservice --user 0 -n com.asus.at/.MainService -a CancelAllNotifications
+am startservice --user 0 -n com.asus.at/.MainService -a ToastMessage -e "Message" "Force Stop"
+am startservice --user 0 -n com.asus.at/.MainService -a NotificationMessage -e "Title" "Force Stop" -e "Text" "Force Stop" -e "ImageName" "cancel"

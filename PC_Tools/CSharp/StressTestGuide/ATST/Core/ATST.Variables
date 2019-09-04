@@ -1,0 +1,64 @@
+#================================================
+#               Path Settings
+#================================================
+CurrentTime=$(date +"%Y%m%d_%H%M%S")
+
+path_ATST="/sdcard/ATST"
+path_ScriptFolder="$path_ATST/Scripts"
+path_TestCaseList="$path_ScriptFolder/TestCaseList.txt"
+path_LogFolder="$path_ATST/Logs"
+path_ScreenShotsFolder="$path_ATST/ScreenShots"
+path_ImagesFolder="$path_ATST/Images"
+path_ATST_Log="$path_LogFolder/ResultLog_$CurrentTime.txt"
+path_LogcatFolder="$path_LogFolder/Logcat_$CurrentTime"
+path_Logcat="$path_LogcatFolder/logcat_$CurrentTime.txt"
+path_DebugMsg="$path_LogFolder/debug.log"
+path_Kmsg="$path_LogFolder/kmsg.log"
+path_KernelLog="$path_LogcatFolder/logcatwithkernel_$CurrentTime.log"
+path_EventLog="$path_LogcatFolder/events.log"
+path_RadioLog="$path_LogcatFolder/radio.log"
+path_InitialSetup="$path_ScriptFolder/InitialSetup"
+path_UIAutomatorXML="$path_ATST/ui.xml"
+path_Suggestion_Log="$path_LogFolder/Suggestion_$CurrentTime.txt"
+
+path_ToolInfoFolder="$path_ATST/ToolInfo"
+path_MyPID="$path_ToolInfoFolder/MyPID"
+path_LogcatPID="$path_ToolInfoFolder/LogcatPID"
+path_CurrentLogPath="$path_ToolInfoFolder/CurrentLogPath"
+path_APIResult="$path_ToolInfoFolder/APIResult"
+path_RunningType="$path_ToolInfoFolder/RunningType"
+path_RunningMode="$path_ToolInfoFolder/RunningMode"
+
+#---If the device have NO internal storage, assign "none" to path_InternalStorage---
+path_InternalStorage="/data"
+#---If the device do NOT support external storage, assign "none" to path_ExternalStorage---
+path_ExternalStorage="none"
+
+#---If record logcat in MicroSD----
+MicroSD_LogFolder="/Removable/MicroSD/logcat_log/"
+MicroSD_LogcatFolder="/Removable/MicroSD/logcat_log/Logcat_$CurrentTime"
+
+#==============================================
+#		SSI Global variables
+#==============================================
+Project=""
+SDKVersion=""
+Language=""
+DeviceMode=""
+CheckMode="false"
+#================================================
+#             Common variables
+#================================================
+ToolVersion="1.1.4"
+DefaultAPITimeout=15
+loop_Iteration=1
+LogcatTag="ATST"
+RunMode=1
+RunType="SSI"
+flag_AutoFillupStorageForMTBF="true"
+AutoFillupStorageUsedRate=95
+RunInitialSetup="true"
+#Automatically update click position while script running by UIA, normally case=false
+UpdateMode="false"
+#Save the logcat file to external SD card. Get the external SD card ready before run when it is true.
+IsLogcattoSD="false"

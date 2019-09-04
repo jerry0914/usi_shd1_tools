@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{307D01DB-1563-4F61-B88E-C21FC0CD7FD3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestGuide</RootNamespace>
+    <AssemblyName>TestGuide</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>USI_TestGuide.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=8.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells.GridDesktop, Version=8.1.0.2000, Culture=neutral, PublicKeyToken=699ccf88ff76f11a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Aspose.Cells.GridDesktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells.GridWeb, Version=8.1.0.2000, Culture=neutral, PublicKeyToken=699ccf88ff76f11a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Aspose.Cells.GridWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADB_Process.cs" />
+    <Compile Include="BatteryInfo.cs" />
+    <Compile Include="CE_Process.cs" />
+    <Compile Include="Device_Infomation.cs" />
+    <Compile Include="FormDataMaintaince.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormDataMaintaince.Designer.cs">
+      <DependentUpon>FormDataMaintaince.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFilePathEditor.cs" />
+    <Compile Include="FormFilePathEditor.Designer.cs">
+      <DependentUpon>FormFilePathEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInitial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormInitial.Designer.cs">
+      <DependentUpon>FormInitial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInstall.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormInstall.Designer.cs">
+      <DependentUpon>FormInstall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConfigEditor.cs" />
+    <Compile Include="FormConfigEditor.Designer.cs">
+      <DependentUpon>FormConfigEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTestResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormTestResult.Designer.cs">
+      <DependentUpon>FormTestResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormToolSettings.cs" />
+    <Compile Include="FormToolSettings.Designer.cs">
+      <DependentUpon>FormToolSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProfilerLogMsg.cs" />
+    <Compile Include="ProfilerLog.cs" />
+    <Compile Include="ProfilerLog_TestCase.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDataMaintaince.resx">
+      <DependentUpon>FormDataMaintaince.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFilePathEditor.resx">
+      <DependentUpon>FormFilePathEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInitial.resx">
+      <DependentUpon>FormInitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInstall.resx">
+      <DependentUpon>FormInstall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfigEditor.resx">
+      <DependentUpon>FormConfigEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTestResult.resx">
+      <DependentUpon>FormTestResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormToolSettings.resx">
+      <DependentUpon>FormToolSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TestCase.cs" />
+    <Compile Include="XElement_Extension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowRightDouble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="adb\adb.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="adb\AdbWinApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="adb\AdbWinUsbApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ATST\BatchCommand\adb.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ATST\BatchCommand\AdbWinApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ATST\BatchCommand\AdbWinUsbApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DefaultSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="favicon.ico" />
+    <None Include="Resources\list_20.png" />
+    <Content Include="USI_TestGuide.ico" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\attachment.png" />
+    <None Include="Resources\script.png" />
+    <None Include="Resources\App.png" />
+    <None Include="Resources\form.png" />
+    <None Include="Resources\Settings.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="Resources\minus.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\save_s.png" />
+    <None Include="Resources\Editor.png" />
+    <None Include="Resources\ArrowLeftDouble.png" />
+    <None Include="Resources\Help_Circle_Blue.png" />
+    <None Include="ATST\BatchCommand\CleanLog.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\BatchCommand\ForceStop.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\BatchCommand\GetLog.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\BatchCommand\Install.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\BatchCommand\Uninstall.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Forcestop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Functions">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Pause">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Restart">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Run">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ATST.Variables">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\KillLogcat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\MemInfo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\RunLogcat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Core\ShellMonitor">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ATST\Files\APKs\APIFunction.apk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Resources\down_1.png" />
+    <None Include="Resources\up_1.png" />
+    <None Include="Resources\previous.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\1405087213_th-list.png" />
+    <None Include="Resources\Start.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\file_upload.png" />
+    <None Include="Resources\phone_transfer.png" />
+    <None Include="StressTestGuide_Helper.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ATST\Files\Docs\" />
+    <Folder Include="ATST\Files\Images\" />
+    <Folder Include="ATST\Files\Movies\" />
+    <Folder Include="ATST\Files\Musics\" />
+    <Folder Include="ATST\Files\Videos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\dev.jerry_h.pc_tools\CSharp\CommonLibrary\CommonLibrary.csproj">
+      <Project>{c750bb52-fc83-47e5-b02c-3cc69148a1b0}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestcasePackage\TestcasePackage.csproj">
+      <Project>{77fe8b6e-d884-4f34-a969-56befac35f0f}</Project>
+      <Name>TestcasePackage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

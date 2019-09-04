@@ -1,0 +1,55 @@
+#!/bin/bash
+
+rm $path_LogcatPID
+
+if [ "$IsLogcattoSD" == "true" ] ; then	
+	echo "Recording logcat in SDCard"	
+	mkdir $MicroSD_LogFolder	
+	mkdir $MicroSD_LogcatFolder
+	path_Logcat="$MicroSD_LogcatFolder/logcat_$CurrentTime.txt"
+	path_EventLog="$MicroSD_LogcatFolder/events.log"
+	path_RadioLog="$MicroSD_LogcatFolder/radio.log"
+fi
+
+#Create logcat folder
+mkdir "$path_LogcatFolder"
+
+logcat -v time -f "$path_Logcat" -r102400 -n500 &
+LogcatPID="$!"
+echo "Logcat PID : $LogcatPID"
+echo "$LogcatPID" >> "$path_LogcatPID"
+
+logcat -v time -b events -f "$path_EventLog" -r102400 -n500 &
+LogcatPID="$!"
+echo "Logcat PID : $LogcatPID"
+echo "$LogcatPID" >> "$path_LogcatPID"
+
+logcat -v time -b radio  -f "$path_RadioLog" -r102400 -n500 &
+LogcatPID="$!"
+echo "Logcat PID : $LogcatPID"
+echo "$LogcatPID" >> "$path_LogcatPID"
+
+sleep 3
+
+if [ -f "$path_Logcat" ]; then
+	echo "$path_Logcat exists"
+else
+	echo "$path_Logcat does not exists"
+	logcat -r 102400 -n 500 -v time -f "$path_Logcat" &
+	LogcatPID="$!"
+	echo "Logcat PID : $LogcatPID"
+	echo "$LogcatPID" >> "$path_LogcatPID"
+fi
+
+
+sleep 3
+
+if [ -f "$path_Logcat" ]; then
+	echo "$path_Logcat already exists"
+else
+	echo "$path_Logcat still does not exists"
+	logcat -v time -f "$path_Logcat" &
+	LogcatPID="$!"
+	echo "Logcat PID : $LogcatPID"
+	echo "$LogcatPID" >> "$path_LogcatPID"
+fi

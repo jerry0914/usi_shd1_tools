@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Scan Stress</string>
+    <string name="titleLoopTimes">Loop : </string>
+    <string name="action_settings">Settings</string>
+    <string name="titleInterval">Interval : </string>
+    <string name="titleBtnStart">Start</string>
+    <string name="titleTestResult">Test Result : </string>
+    <string name="titlePass">Pass : </string>
+
+    <color name="colorResultPass">#00CC00</color>
+    <color name="colorResultFail">#FF0000</color>
+    <color name="colorResultND">#FF4410</color>
+
+    <string name="titleFail">Fail : </string>
+    <string name="titleND"> N.D : </string>
+    <string name="titleBtnTestScan">SCAN</string>
+    <string name="titleTimeout">Timeout : </string>
+    <string name="titleDecode">Decode</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="chkEnableDisableEachScan">Enable/Disable for each scan</string>
+    <string name="title_activity_scan_dealy_settings">ScanDealySettings</string>
+    <string name="lblScanEnableDelay">Scanner Enable Delay :</string>
+    <string name="lblScanDisableDelay">Scanner Disable Delay :</string>
+    <string name="title_activity_scan_service">Scan Stress</string>
+
+</resources>

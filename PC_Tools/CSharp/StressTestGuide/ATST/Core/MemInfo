@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#========== Get MemInfo PID ==============
+rm /sdcard/ATST/ToolInfo/MemPID
+echo $$  >> /sdcard/ATST/ToolInfo/MemPID
+
+
+mkdir -p /sdcard/ATST/ToolInfo/Meminfo
+mkdir -p /sdcard/ATST/ToolInfo/Anr
+
+delay_time=300
+StartTime=$(date +%s)
+MemSaveTime=$(($StartTime+$delay_time))
+
+while [ true ]
+do
+	CurrentTime=$(date +"%Y%m%d_%H%M%S")
+	StartTime=$(date +%s)
+	if [ $StartTime -ge $MemSaveTime ] ; then
+		cat /proc/meminfo > /sdcard/ATST/ToolInfo/Meminfo/meminfo_$CurrentTime.txt
+		StartTime=$(date +%s)
+		MemSaveTime=$(($StartTime+$delay_time))
+	fi
+	
+	sleep 30
+	
+	#if [ -d "/data/anr" ]; then
+	#	echo "/data/anr already exists"
+	#	cp -r /data/anr /sdcard/ATST/ToolInfo/Anr/anr_$CurrentTime
+	#	sleep 1
+		#need user version
+	#	rm -r /data/anr
+	#	sleep 1
+	#else
+	#	echo "/data/anr still does not exists"
+	#fi
+done
+echo Done!

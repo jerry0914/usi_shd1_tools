@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CCDFFAA1-BFA0-428F-97DB-C3AA7385FD8D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>com.usi.shd1_tools.TelephonyAutomation</RootNamespace>
+    <AssemblyName>TelephonyAutomation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>USI_Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=5.3.1.0, Culture=neutral, PublicKeyToken=9ec0ff091d04b091, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmDutSignal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDutSignal.Designer.cs">
+      <DependentUpon>frmDutSignal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddFrequencyAmplitude.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddFrequencyAmplitude.Designer.cs">
+      <DependentUpon>frmAddFrequencyAmplitude.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDutFunctionTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDutFunctionTest.Designer.cs">
+      <DependentUpon>frmDutFunctionTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStationEmulatorFuncationTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStationEmulatorFuncationTest.Designer.cs">
+      <DependentUpon>frmStationEmulatorFuncationTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStationEmulatorInitialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStationEmulatorInitialization.designer.cs">
+      <DependentUpon>frmStationEmulatorInitialization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcedureProcessor_8960.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCaseReader.cs" />
+    <Compile Include="uc8960TelephonyAutomation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uc8960TelephonyAutomation.Designer.cs">
+      <DependentUpon>uc8960TelephonyAutomation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucDbg0003.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDbg0003.Designer.cs">
+      <DependentUpon>ucDbg0003.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucDbg0002.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDbg0002.Designer.cs">
+      <DependentUpon>ucDbg0002.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucDbg0001.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDbg0001.Designer.cs">
+      <DependentUpon>ucDbg0001.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmDutSignal.resx">
+      <DependentUpon>frmDutSignal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddFrequencyAmplitude.resx">
+      <DependentUpon>frmAddFrequencyAmplitude.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDutFunctionTest.resx">
+      <DependentUpon>frmDutFunctionTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStationEmulatorFuncationTest.resx">
+      <DependentUpon>frmStationEmulatorFuncationTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStationEmulatorInitialization.resx">
+      <DependentUpon>frmStationEmulatorInitialization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="uc8960TelephonyAutomation.resx">
+      <DependentUpon>uc8960TelephonyAutomation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDbg0003.resx">
+      <DependentUpon>ucDbg0003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDbg0002.resx">
+      <DependentUpon>ucDbg0002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDbg0001.resx">
+      <DependentUpon>ucDbg0001.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FreqAmpTables\default.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\pause.png" />
+    <Content Include="Pictures\resume.png" />
+    <None Include="Pictures\tools.png" />
+    <Content Include="Resources\Aspose.Cells.dll" />
+    <Content Include="USI_Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\dev.jerry_h.pc_tools\CSharp\AndroidLibrary\AndroidLibrary.csproj">
+      <Project>{34a61dd2-d1ef-4818-9c2d-e477343fda29}</Project>
+      <Name>AndroidLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\dev.jerry_h.pc_tools\CSharp\CommonLibrary\CommonLibrary.csproj">
+      <Project>{c750bb52-fc83-47e5-b02c-3cc69148a1b0}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestcasePackage\TestcasePackage.csproj">
+      <Project>{77fe8b6e-d884-4f34-a969-56befac35f0f}</Project>
+      <Name>TestcasePackage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_8960Library\_8960Library.csproj">
+      <Project>{6ea0aa7b-681f-4497-a568-be50fe2e6ba9}</Project>
+      <Name>_8960Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
